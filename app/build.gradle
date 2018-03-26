@@ -20,14 +20,69 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+}
+kapt {
+    generateStubs = true
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "com.android.support:appcompat-v7:$android_support_version"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:design:$android_support_version"
+    implementation "com.android.support:recyclerview-v7:$android_support_version"
+    //引入databinding
+    kapt "com.android.databinding:compiler:$android_plugin_version"
+    //引入kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //引入okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    //引入retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    //引入rxjava
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+    //引入Log拦截器，方便DEBUG模式输出log信息
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    //引入rxjava适配器，方便rxjava与retrofit的结合
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    //引入json转换器，方便将返回的数据转换为json格式
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //引入rxandroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //rxlifecycle
+    implementation 'com.trello:rxlifecycle:1.0'
+    implementation 'com.trello:rxlifecycle-components:1.0'
+    //banner
+    implementation 'com.youth.banner:banner:1.4.10'
+    //recyclerview adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    //runtime permission
+    implementation 'pub.devrel:easypermissions:1.1.1'
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    //log
+    implementation 'com.orhanobut:logger:2.1.1'
+    //dialog material style
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    //flexbox
+    implementation 'com.google.android:flexbox:0.3.0-alpha2'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    //video
+//    implementation 'com.shuyu:GSYVideoPlayer:1.6.8'
+    //rxdownload
+    implementation 'zlc.season:rxdownload2:2.0.4'
+    //navigator
+    implementation 'com.github.Aspsine:FragmentNavigator:1.0.2'
+
+    implementation 'com.gyf.barlibrary:barlibrary:2.2.5'
+
 }
