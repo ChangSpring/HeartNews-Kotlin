@@ -3,18 +3,23 @@ package com.alfred.heartnews.ui.widget
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.alfred.heartnews.R
-import com.alfred.heartnews.databinding.LayoutBottomNavigatorBinding
 
 /**
  * Created by alfred on 2018/3/23.
  */
 class BottomNavigatorView : LinearLayoutCompat {
 
-    private var mBinding: LayoutBottomNavigatorBinding? = null
+//    private var mBinding: LayoutBottomNavigatorBinding? = null
+
+    private var mIvIconHome: ImageView? = null
+    private var mIvIconFind: ImageView? = null
+    private var mIvIconHot: ImageView? = null
+    private var mIvIconUserCenter: ImageView? = null
 
     var mOnBottomNavigatorViewItemClickListener: OnBottomNavigatorViewItemClickListener? = null
 
@@ -26,7 +31,13 @@ class BottomNavigatorView : LinearLayoutCompat {
 
     init {
         orientation = HORIZONTAL
-        mBinding = LayoutBottomNavigatorBinding.bind(View.inflate(context, R.layout.layout_bottom_navigator, this))
+
+//        mBinding = LayoutBottomNavigatorBinding.bind(LayoutInflater.from(context).inflate(R.layout.layout_bottom_navigator,this))
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_bottom_navigator, this)
+        mIvIconHome = view.findViewById(R.id.ivIconHome)
+        mIvIconFind = view.findViewById(R.id.ivIconFind)
+        mIvIconHot = view.findViewById(R.id.ivIconHot)
+        mIvIconUserCenter = view.findViewById(R.id.ivIconUserCenter)
 
         for (i in 0 until childCount) {
             val view = getChildAt(i)
@@ -57,16 +68,16 @@ class BottomNavigatorView : LinearLayoutCompat {
             if (childView is ImageView) {
                 when (childView.id) {
                     R.id.ivIconHome -> {
-                        mBinding?.ivIconHome?.setImageResource(R.drawable.home_selected)
+                        mIvIconHome?.setImageResource(R.drawable.home_selected)
                     }
                     R.id.ivIconFind -> {
-                        mBinding?.ivIconFind?.setImageResource(R.drawable.find_normal)
+                        mIvIconFind?.setImageResource(R.drawable.find_selected)
                     }
                     R.id.ivIconHot -> {
-                        mBinding?.ivIconHot?.setImageResource(R.drawable.hot_normal)
+                        mIvIconHot?.setImageResource(R.drawable.hot_selected)
                     }
                     R.id.ivIconUserCenter -> {
-                        mBinding?.ivIconUserCenter?.setImageResource(R.drawable.mine_normal)
+                        mIvIconUserCenter?.setImageResource(R.drawable.mine_selected)
                     }
                 }
 
@@ -77,10 +88,10 @@ class BottomNavigatorView : LinearLayoutCompat {
     }
 
     private fun resetTabIcon() {
-        mBinding?.ivIconHome?.setImageResource(R.drawable.home_normal)
-        mBinding?.ivIconFind?.setImageResource(R.drawable.find_normal)
-        mBinding?.ivIconHot?.setImageResource(R.drawable.hot_normal)
-        mBinding?.ivIconUserCenter?.setImageResource(R.drawable.mine_normal)
+        mIvIconHome?.setImageResource(R.drawable.home_normal)
+        mIvIconFind?.setImageResource(R.drawable.find_normal)
+        mIvIconHot?.setImageResource(R.drawable.hot_normal)
+        mIvIconUserCenter?.setImageResource(R.drawable.mine_normal)
     }
 
     fun setOnBottomNavigatorViewItemClickListener(onBottomNavigatorViewItemClickListener: OnBottomNavigatorViewItemClickListener) {

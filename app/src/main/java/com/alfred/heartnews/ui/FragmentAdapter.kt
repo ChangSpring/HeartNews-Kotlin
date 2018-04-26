@@ -1,6 +1,10 @@
 package com.alfred.heartnews.ui
 
 import android.support.v4.app.Fragment
+import com.alfred.heartnews.ui.find.FindFragment
+import com.alfred.heartnews.ui.home.HomeFragment
+import com.alfred.heartnews.ui.hot.HotFragment
+import com.alfred.heartnews.ui.user.UserFragment
 import com.aspsine.fragmentnavigator.FragmentNavigatorAdapter
 
 /**
@@ -14,7 +18,7 @@ class FragmentAdapter : FragmentNavigatorAdapter {
     override fun onCreateFragment(p0: Int): Fragment {
         return when (p0) {
             0 -> {
-                MainFragment.newInstance()
+                HomeFragment.newInstance()
             }
             1 -> {
                 FindFragment.newInstance()
@@ -26,7 +30,7 @@ class FragmentAdapter : FragmentNavigatorAdapter {
                 UserFragment.newInstance()
             }
             else -> {
-                MainFragment.newInstance()
+                HomeFragment.newInstance()
             }
         }
     }
