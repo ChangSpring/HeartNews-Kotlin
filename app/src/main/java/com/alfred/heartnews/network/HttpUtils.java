@@ -1,12 +1,10 @@
 package com.alfred.heartnews.network;
 
-import com.alfred.heartnews.module.BaseEntity;
 import com.alfred.heartnews.network.service.ApiService;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tt.lvruheng.eyepetizer.mvp.model.bean.HomeBean;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -16,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,9 +26,9 @@ public class HttpUtils {
     private static final int DEFAULT_TIMEOUT = 5;
 
     private Retrofit mRetrofit;
-    private ApiService mApiService
+    private ApiService mApiService;
 
-    private HttpUtils {
+    private HttpUtils() {
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -54,21 +51,13 @@ public class HttpUtils {
         return SingletonHolder.INSTANCE;
     }
 
-//    public void getNewsList(Subscriber<List<News>> subscriber, int start, int count) {
-//        rx.Observable observable = mApiService.get()
-//                .map(new HttpResultFunc<List<News>>());
-//
-//        toSubscribe(observable,subscriber);
-//    }
-
-    public void getHomeList(Subscriber<HomeBean> subscriber) {
-        Observable<HomeBean> observable = mApiService.getHomeData();
-
-        toSubscribe(observable, subscriber);
-    }
-
-    public void getHomeMoreList(Subscriber<HomeBean> subscriber, boolean date, int num) {
-        Observable<HomeBean> observable = mApiService.getHomeMoreData(String.valueOf(date), String.valueOf(num));
+    public void getHomeList(Subscriber<HomeBean> subscriber, boolean isFirst, String data) {
+        Observable<HomeBean> observable;
+        if (isFirst) {
+            observable = mApiService.getHomeData();
+        } else {
+            observable = mApiService.getHomeMoreData(String.valueOf(data), "2");
+        }
 
         toSubscribe(observable, subscriber);
     }

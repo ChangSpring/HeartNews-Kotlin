@@ -1,4 +1,4 @@
-package com.alfred.heartnews.base
+package com.alfred.heartnews.ui.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import com.alfred.heartnews.R
-import com.alfred.heartnews.base.BaseActivity
+import com.alfred.heartnews.ui.base.BaseActivity
 import com.alfred.heartnews.databinding.ActivityMainBinding
 import com.alfred.heartnews.ui.widget.BottomNavigatorView
 import com.aspsine.fragmentnavigator.FragmentNavigator
