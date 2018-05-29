@@ -1,4 +1,4 @@
-package com.tt.lvruheng.eyepetizer.mvp.model.bean
+package com.alfred.heartnews.data.module
 
 import java.io.Serializable
 

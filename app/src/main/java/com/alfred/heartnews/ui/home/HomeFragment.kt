@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alfred.heartnews.R
+import com.alfred.heartnews.data.module.HomeBean
 import com.alfred.heartnews.ui.base.BaseListAdapter
 import com.alfred.heartnews.ui.base.BaseListFragment
-import com.alfred.heartnews.ui.viewmodel.BaseListViewModel
+import com.alfred.heartnews.ui.base.BaseListViewModel
 import com.alfred.heartnews.ui.viewmodel.HomeViewModel
 import com.alfred.heartnews.ui.viewmodel.OnRequestListener
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.tt.lvruheng.eyepetizer.mvp.model.bean.HomeBean
 
 /**
  * Created by alfred on 2018/3/23.
@@ -33,7 +33,7 @@ class HomeFragment : BaseListFragment<HomeBean.IssueListBean.ItemListBean>() {
         super.onActivityResult(requestCode, resultCode, data)
         (mViewModel as HomeViewModel).setOnRequestListener(object : OnRequestListener<MutableList<HomeBean.IssueListBean.ItemListBean>> {
             override fun onFailure(message: String?) {
-
+                refreshFailed()
             }
 
             override fun onSuccess(t: MutableList<HomeBean.IssueListBean.ItemListBean>?) {
@@ -43,14 +43,14 @@ class HomeFragment : BaseListFragment<HomeBean.IssueListBean.ItemListBean>() {
     }
 
     override fun getAdapter(): BaseListAdapter<HomeBean.IssueListBean.ItemListBean> {
-       return HomeAdapter(mContext, R.layout.item_home)
+        return HomeAdapter(mContext, R.layout.item_home)
     }
 
     override fun onRecyclerViewItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
     override fun getViewModel(): BaseListViewModel<HomeBean.IssueListBean.ItemListBean> {
-       return HomeViewModel(mContext)
+        return HomeViewModel(mContext)
     }
 
 }

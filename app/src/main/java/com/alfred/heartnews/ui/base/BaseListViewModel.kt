@@ -1,11 +1,9 @@
-package com.alfred.heartnews.ui.viewmodel
-
-import android.arch.lifecycle.ViewModel
+package com.alfred.heartnews.ui.base
 
 /**
  * Created by alfred on 2018/5/21.
  */
-abstract class BaseListViewModel<T> : ViewModel() {
+abstract class BaseListViewModel<T> : BaseViewModel<T>() {
 
     var mPageNumber = PAGE_NUMBER_FIRST
 
@@ -24,6 +22,9 @@ abstract class BaseListViewModel<T> : ViewModel() {
         mPageNumber++
     }
 
+    fun isFirstPage(): Boolean {
+        return mPageNumber == PAGE_NUMBER_FIRST
+    }
 
 
 }

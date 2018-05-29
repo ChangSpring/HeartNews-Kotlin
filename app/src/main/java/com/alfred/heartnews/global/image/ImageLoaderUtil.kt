@@ -7,38 +7,34 @@ import android.widget.ImageView
 /**
  * Created by alfred on 2018/5/25.
  */
-class ImageLoaderUtil() {
-    companion object {
+object ImageLoaderUtil {
+    /**
+     * 用glide加载图片首先需要判断的,避免出现'You cannot start a load for a destroyed activity at '此类crash
+     *
+     * @param context
+     * @return
+     */
+    fun isValidContextForGlide(context: Context?): Boolean {
+        if (context == null) {
+            return false
+        }
 
-        /**
-         * 用glide加载图片首先需要判断的,避免出现'You cannot start a load for a destroyed activity at '此类crash
-         *
-         * @param context
-         * @return
-         */
-        fun isValidContextForGlide(context: Context?): Boolean {
-            if (context == null) {
+        if (context is Activity) {
+            if (context.isDestroyed || context.isFinishing) {
                 return false
             }
-
-            if (context is Activity) {
-                if (context.isDestroyed || context.isFinishing) {
-                    return false
-                }
-            }
-            return true
         }
+        return true
+    }
 
 
-        fun display(context: Context, imageView: ImageView?, url: String) {
-            if (imageView == null) {
-                throw IllegalArgumentException("image view is null")
-            }
-//            GlideAPP.with(context).load(url)
-//                    .crossFade().into(imageView)
+    fun display(context: Context?, imageView: ImageView?, url: String) {
+        if (imageView == null) {
+            throw IllegalArgumentException("image view instance is null")
         }
-
-
-
+        if (isValidContextForGlide(context)) {
+            GlideApp.with(context!!).load(url).normalImage()
+                    .centerCrop().into(imageView)
+        }
     }
 }

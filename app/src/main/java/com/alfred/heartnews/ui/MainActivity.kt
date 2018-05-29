@@ -4,8 +4,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import com.alfred.heartnews.R
-import com.alfred.heartnews.ui.base.BaseActivity
 import com.alfred.heartnews.databinding.ActivityMainBinding
+import com.alfred.heartnews.ui.base.BaseActivity
 import com.alfred.heartnews.ui.widget.BottomNavigatorView
 import com.aspsine.fragmentnavigator.FragmentNavigator
 
@@ -26,13 +26,15 @@ class MainActivity : BaseActivity(), BottomNavigatorView.OnBottomNavigatorViewIt
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         mBottomNavigatorView = mBinding.bottomNavigatorView
-        mBottomNavigatorView.setOnBottomNavigatorViewItemClickListener(this@MainActivity)
+        mBottomNavigatorView.setOnBottomNavigatorViewItemClickListener(this)
 
         mNavigator = FragmentNavigator(supportFragmentManager, FragmentAdapter(), R.id.fl_content_main)
         mNavigator?.setDefaultPosition(DEFAULT_POSITION)
         mNavigator?.onCreate(savedInstanceState)
 
-        mBottomNavigatorView.mOnBottomNavigatorViewItemClickListener = this@MainActivity
+        mBottomNavigatorView.mOnBottomNavigatorViewItemClickListener = this
+
+        setCurrentTab(mNavigator?.currentPosition!!)
     }
 
     private fun setCurrentTab(position: Int) {

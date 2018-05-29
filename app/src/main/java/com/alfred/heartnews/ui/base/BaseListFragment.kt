@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.alfred.heartnews.R
 import com.alfred.heartnews.databinding.FragmentBaseListBinding
-import com.alfred.heartnews.ui.viewmodel.BaseListViewModel
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 
@@ -33,21 +32,23 @@ abstract class BaseListFragment<T> : BaseFragment(), SwipeRefreshLayout.OnRefres
 
         mViewModel = getViewModel()
 
-        mBinding?.swipeRefreshLayout?.setOnRefreshListener { this }
-        mBinding?.swipeRefreshLayout?.setColorSchemeColors(Color.RED)
-        mBinding?.recyclerView?.layoutManager = LinearLayoutManager(mContext)
+        mBinding?.let {
+            it.swipeRefreshLayout.setOnRefreshListener { this }
+            it.swipeRefreshLayout.setColorSchemeColors(Color.RED)
+            it.recyclerView.layoutManager = LinearLayoutManager(mContext)
 
-        mAdapter = getAdapter()
-        mAdapter?.setOnLoadMoreListener(this, mBinding?.recyclerView)
-        mBinding?.recyclerView?.adapter = mAdapter
+            mAdapter = getAdapter()
+            mAdapter?.setOnLoadMoreListener(this, it.recyclerView)
+            it.recyclerView.adapter = mAdapter
 
-        mBinding?.recyclerView?.addOnItemTouchListener(object : OnItemClickListener() {
-            override fun onSimpleItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-                onRecyclerViewItemClick(adapter, view, position)
-            }
-        })
+            it.recyclerView.addOnItemTouchListener(object : OnItemClickListener() {
+                override fun onSimpleItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                    onRecyclerViewItemClick(adapter, view, position)
+                }
+            })
 
-        mBinding?.swipeRefreshLayout?.isRefreshing = true
+            it.swipeRefreshLayout.isRefreshing = true
+        }
 
         mViewModel?.requestData()
 
@@ -81,6 +82,14 @@ abstract class BaseListFragment<T> : BaseFragment(), SwipeRefreshLayout.OnRefres
             }else {
                 mAdapter?.addData(data!!)
             }
+        }
+    }
+
+    fun refreshFailed() {
+        if (mViewModel?.isFirstPage()!!) {
+            mBinding?.swipeRefreshLayout?.isRefreshing = false
+        }else {
+            mAdapter?.loadMoreFail()
         }
     }
 
