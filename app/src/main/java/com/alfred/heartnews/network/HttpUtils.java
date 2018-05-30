@@ -1,10 +1,12 @@
 package com.alfred.heartnews.network;
 
+import com.alfred.heartnews.data.module.FindBean;
 import com.alfred.heartnews.data.module.HomeBean;
 import com.alfred.heartnews.network.service.ApiService;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -61,6 +63,10 @@ public class HttpUtils {
         }
 
         toSubscribe(observable, subscriber);
+    }
+
+    public void getFindList(Observer<List<FindBean>> observer) {
+        toSubscribe(mApiService.getFindData(),observer);
     }
 
     private <T> void toSubscribe(Observable<T> observable, Observer<T> subscriber) {
