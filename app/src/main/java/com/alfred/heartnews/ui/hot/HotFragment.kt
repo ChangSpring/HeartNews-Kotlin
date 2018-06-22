@@ -1,12 +1,7 @@
 package com.alfred.heartnews.ui.hot
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.alfred.heartnews.R
 import com.alfred.heartnews.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_hot.*
 
@@ -15,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_hot.*
  */
 class HotFragment : BaseFragment() {
 
-    var mBinding: FragmentHotBinding? = null
+//    var mBinding: FragmentHotBinding? = null
     var mTabs = listOf("周排行", "月排行", "总排行").toMutableList()
     lateinit var mFragments: ArrayList<Fragment>
     val STRATEGY = arrayOf("weekly", "monthly", "historical")
@@ -28,10 +23,10 @@ class HotFragment : BaseFragment() {
         val STRATEGY_EXTRA = "strategy"
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_hot, container, false)
-        return mBinding?.root
-    }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+//        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_hot, container, false)
+//        return mBinding?.root
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

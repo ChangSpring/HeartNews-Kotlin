@@ -19,7 +19,7 @@ class RankFragment : BaseListFragment<HotBean, RankViewModel>() {
     }
 
     override fun getAdapter(): BaseListAdapter<HotBean> {
-        return RankAdapter(mContext, R.layout.item_rank)
+        return RankAdapter(mContext!!, R.layout.item_rank)
     }
 
     override fun getViewModel(): BaseListViewModel<HotBean> {
